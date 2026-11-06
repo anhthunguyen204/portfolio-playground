@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./blossom-burst.js"></script><script src="./theme.js"></script><link rel="stylesheet" href="assets/fonts/fonts.css"></helmet>
+<div aria-hidden="true" style="height:68px"></div>
+<nav aria-label="Primary" style="position:fixed;top:0;left:0;right:0;z-index:50;background:{{ navBg }};backdrop-filter:{{ navBlur }};-webkit-backdrop-filter:{{ navBlur }};border-bottom:1px solid {{ navLine }};transition:{{ navTransition }}">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+  <div style="box-sizing:border-box;width:{{ barW }};margin:{{ barMargin }};padding:{{ barPad }};height:{{ barH }};display:flex;align-items:center;justify-content:space-between;gap:{{ barGap }};font-family:var(--pf-sans);background:{{ barBg }};border-radius:{{ barRadius }};box-shadow:{{ barShadow }};transition:{{ barTransition }};position:relative">
+    <a href="#/" ref="{{ leftRef }}" onClick="{{ onLogo }}" style="flex:none;display:flex;align-items:center;gap:8px;color:var(--pf-fg);text-decoration:none" style-focus="outline:2px solid var(--pf-focus);outline-offset:4px">
+      <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><img src="assets/logo/logo-light.svg" alt="Thư Nguyễn — home" width="140" height="32" decoding="async" style="display:block;flex:none;width:140px;height:32px;image-rendering:pixelated"></sc-if>
+      <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><img src="assets/logo/logo-dark.svg" alt="Thư Nguyễn — home" width="140" height="32" decoding="async" style="display:block;flex:none;width:140px;height:32px;image-rendering:pixelated"></sc-if>
+      
+    </a>
+    <sc-if value="{{ showInline }}" hint-placeholder-val="{{ true }}">
+      <div ref="{{ rightRef }}" style="flex:none;display:flex;align-items:center;gap:36px;position:relative">
+        <ul style="list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:28px">
+          <sc-for list="{{ links }}" as="it" hint-placeholder-count="3">
+            <li style="display:flex">
+              <sc-if value="{{ it.isActive }}" hint-placeholder-val="{{ false }}">
+                <a href="{{ it.href }}" aria-current="page" style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--pf-fg);text-decoration:none" style-focus="outline:2px solid var(--pf-focus);outline-offset:4px"><span style="width:5px;height:5px;border-radius:50%;background:var(--pf-accent)"></span>{{ it.label }}</a>
+              </sc-if>
+              <sc-if value="{{ it.isIdle }}" hint-placeholder-val="{{ true }}">
+                <a href="{{ it.href }}" target="{{ it.target }}" onClick="{{ it.onClick }}" style="font-size:14px;font-weight:500;color:var(--pf-muted);text-decoration:none;transition:color 160ms" style-hover="color:var(--pf-accent)" style-focus="outline:2px solid var(--pf-focus);outline-offset:4px">{{ it.label }}</a>
+              </sc-if>
+              <sc-if value="{{ it.disabled }}" hint-placeholder-val="{{ false }}">
+                <span aria-disabled="true" title="Résumé file not provided yet" style="font-size:14px;font-weight:500;color:var(--pf-subtle);cursor:not-allowed">{{ it.label }}</span>
+              </sc-if>
+            </li>
+          </sc-for>
+        </ul>
+        <a href="#/contact" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;background:var(--pf-fg);color:var(--pf-bg);font-size:14px;font-weight:500;text-decoration:none;transition:background-color 180ms cubic-bezier(.2,.7,.2,1),transform 140ms cubic-bezier(.2,.7,.2,1)" style-hover="background:var(--pf-fg-hover);color:var(--pf-bg)" style-active="transform:scale(0.97)" style-focus="outline:2px solid var(--pf-focus);outline-offset:3px">Contact</a>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:-24px"><button type="button" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="flex:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--pf-surface);color:var(--pf-fg);border:none;border-radius:999px;cursor:pointer;transition:border-color 180ms cubic-bezier(.2,.7,.2,1),background-color 180ms,transform 140ms cubic-bezier(.2,.7,.2,1)" style-hover="background:var(--pf-line)" style-active="transform:scale(0.94);background:var(--pf-line)" style-focus="outline:2px solid var(--pf-focus);outline-offset:2px">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></sc-if>
+        </button><dc-import name="PfCatChat" size="{{ 40 }}" hint-size="40px,40px"></dc-import></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ compact }}" hint-placeholder-val="{{ false }}">
+      <div ref="{{ rightRef }}" style="flex:none;display:flex;align-items:center;gap:8px"><button type="button" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--pf-surface);color:var(--pf-fg);border:none;border-radius:999px;cursor:pointer;transition:border-color 180ms cubic-bezier(.2,.7,.2,1),background-color 180ms,transform 140ms cubic-bezier(.2,.7,.2,1)" style-hover="background:var(--pf-line)" style-active="transform:scale(0.94);background:var(--pf-line)" style-focus="outline:2px solid var(--pf-focus);outline-offset:2px">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></sc-if>
+        </button>
+      <dc-import name="PfCatChat" size="{{ 44 }}" hint-size="44px,44px"></dc-import>
+      <button type="button" onClick="{{ toggle }}" aria-expanded="{{ open }}" aria-controls="pf-mobile-menu" aria-label="{{ toggleLabel }}" style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:var(--pf-surface);border:none;border-radius:999px;cursor:pointer" style-focus="outline:2px solid var(--pf-focus);outline-offset:2px">
+        <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--pf-fg)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 5.5h12M2 10.5h12"></path></svg></sc-if>
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--pf-fg)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path></svg></sc-if>
+      </button>
+      </div>
+    </sc-if>
+  </div>
+  </div>
+  <sc-if value="{{ showSheet }}" hint-placeholder-val="{{ false }}">
+    <div id="pf-mobile-menu" style="border-top:1px solid var(--pf-line);background:var(--pf-bg);padding:8px clamp(20px,4vw,48px) 32px;height:calc(100vh - 68px);height:calc(100dvh - 68px);overflow-y:auto;box-sizing:border-box;font-family:var(--pf-sans)">
+      <sc-for list="{{ items }}" as="it" hint-placeholder-count="4">
+        <sc-if value="{{ it.enabled }}" hint-placeholder-val="{{ true }}">
+          <a href="{{ it.href }}" target="{{ it.target }}" onClick="{{ it.onClick }}" style="display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--pf-line);font-size:32px;font-weight:600;letter-spacing:-0.03em;color:var(--pf-fg);text-decoration:none" style-active="color:var(--pf-accent)">{{ it.label }}<span style="font-size:13px;font-weight:500;letter-spacing:0;color:var(--pf-subtle)">{{ it.n }}</span></a>
+        </sc-if>
+        <sc-if value="{{ it.disabled }}" hint-placeholder-val="{{ false }}">
+          <span style="display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--pf-line);font-size:32px;font-weight:600;letter-spacing:-0.03em;color:var(--pf-disabled)">{{ it.label }}<span style="font-size:13px;font-weight:500;letter-spacing:0">Soon</span></span>
+        </sc-if>
+      </sc-for>
+    </div>
+  </sc-if>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:80},&quot;route&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;work&quot;,&quot;case&quot;,&quot;about&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;compact&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;resumeUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { open: false, floating: false, cw: 0, iw: 0, theme: (window.pfTheme && window.pfTheme.get()) || 'light' };
+  componentDidMount() {
+    this.ensureScroll();
+    this._onTheme = (e) => this.setState({ theme: e.detail.theme });
+    window.addEventListener('pf-theme', this._onTheme);
+  }
+  // Layout: the bar lives inside the same container as the hero (max-width 1200 + clamp side padding), so in the
+  // default state it is exactly the content box. Floating, it shrinks to its measured content width + padding and
+  // centers in that box. Both widths are real px values, so width/padding animate together without jumps.
+  _ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => this.measure()) : null;
+  _els = {};
+  trackRef(key) {
+    return this['_' + key + 'Cb'] || (this['_' + key + 'Cb'] = (el) => {
+      const prev = this._els[key];
+      if (prev && this._ro) this._ro.unobserve(prev);
+      this._els[key] = el;
+      if (el && this._ro) { this._ro.observe(el); if (el.parentElement && key === 'left') this._ro.observe(el.parentElement.parentElement); }
+      this.measure();
+    });
+  }
+  measure() {
+    const l = this._els.left, r = this._els.right;
+    if (!l) return;
+    const box = l.parentElement && l.parentElement.parentElement; // the shared container
+    if (!box) return;
+    const cs = getComputedStyle(box);
+    const cw = Math.round(box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight));
+    const iw = Math.ceil(l.offsetWidth + (r ? r.offsetWidth : 0));
+    if (cw !== this.state.cw || iw !== this.state.iw) this.setState({ cw, iw });
+  }
+  ensureScroll() {
+    if (this._onScroll) return;
+    this._reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    // Hysteresis: float past 80px, restore below 40px — no flicker at the threshold
+    this._onScroll = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => {
+        this._raf = 0;
+        const y = window.scrollY || document.documentElement.scrollTop || 0;
+        const f = this.state.floating;
+        if (!f && y > 80) this.setState({ floating: true });
+        else if (f && y < 40) this.setState({ floating: false });
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    setTimeout(this._onScroll, 0);
+  }
+  componentWillUnmount() {
+    if (this._ro) this._ro.disconnect();
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('pf-theme', this._onTheme);
+    if (this._raf) cancelAnimationFrame(this._raf);
+    this._onScroll = null;
+  }
+    // Logo: burst from the click point (keyboard activation → logo centre). On Home, stay put and just
+  // scroll to top; elsewhere the link's own href navigates home as usual.
+  onLogo = (e) => {
+    if (this.state && this.state.open) this.setState({ open: false });
+    const el = e.currentTarget, r = el.getBoundingClientRect();
+    const kb = !e.clientX && !e.clientY;
+    const x = kb ? r.left + r.width / 2 : e.clientX, y = kb ? r.top + r.height / 2 : e.clientY;
+    if (window.pfBlossomBurst) window.pfBlossomBurst(x, y);
+    const h = location.hash;
+    if (h === '' || h === '#' || h === '#/') {
+      e.preventDefault();
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    }
+  };
+  renderVals() {
+    const route = this.props.route || 'home';
+    const compact = !!this.props.compact;
+    const resume = this.props.resumeUrl || '';
+    const onResume = typeof this.props.onResume === 'function' ? this.props.onResume : null;
+    const close = () => this.setState({ open: false });
+    const raw = [
+      { label: 'Work', href: '#/work', key: 'work' },
+      { label: 'About', href: '#/about', key: 'about' },
+      { label: 'Playground', href: '#/playground', key: 'playground' },
+      { label: 'Résumé', href: onResume ? '#resume' : (resume || '#'), key: 'resume', disabled: !onResume && !resume, external: !onResume },
+      { label: 'Contact', href: '#/contact', key: 'contact' }
+    ];
+    const items = raw.map((it, i) => {
+      const active = it.key === route || (it.key === 'work' && route === 'case');
+      return { ...it, n: '0' + (i + 1), isActive: !it.disabled && active, isIdle: !it.disabled && !active, enabled: !it.disabled, disabled: !!it.disabled, target: it.external ? '_blank' : '_self', onClick: (it.key === 'resume' && onResume) ? (e) => { e.preventDefault(); close(); onResume(e); } : close };
+    });
+    this.ensureScroll();
+    const float = this.state.floating && !this.state.open;
+    const reduce = this._reduce && this._reduce.matches;
+    const ease = '280ms cubic-bezier(.22,1,.36,1)';
+    // Inset border via box-shadow so it never shifts content. Pill padding: 24px before the name; 8px after the
+    // Contact button, matching the button's own (56 − 40) / 2 = 8px vertical inset.
+    const PL = 24, PR = 8, GAP = 40;
+    const { cw, iw } = this.state;
+    const fit = cw && iw ? Math.min(cw, iw + GAP + PL + PR) : 0;
+    const barW = !cw ? '100%' : (float ? (compact ? cw : fit) + 'px' : cw + 'px');
+    const tr = (props) => reduce ? 'none' : props.map(p => p + ' ' + ease).join(', ');
+    return {
+      onLogo: this.onLogo,
+      navBg: compact && this.state.open ? 'var(--pf-bg)' : 'rgba(255,255,255,0)',
+      menuOpen: !!this.state.open, menuClosed: !this.state.open,
+      navBlur: 'none',
+      navLine: 'rgba(227,227,223,0)',
+      navTransition: tr(['background-color', 'border-color']),
+      leftRef: this.trackRef('left'), rightRef: this.trackRef('right'),
+      barW: barW,
+      barGap: float && !compact ? '40px' : '24px',
+      barMargin: float ? '6px auto 0' : '0 auto',
+      barH: float ? '56px' : '68px',
+      barPad: float ? (compact ? '0 6px 0 16px' : '0 ' + PR + 'px 0 ' + PL + 'px') : '0px 0px 0px 0px',
+      barBg: float ? 'var(--pf-bg)' : 'rgba(255,255,255,0)',
+
+      barRadius: float ? '999px' : '0px',
+      barShadow: float ? '0 8px 28px -14px var(--pf-shadow)' : '0 8px 28px -14px rgba(20,20,20,0)',
+      barTransition: tr(['width', 'margin', 'height', 'padding', 'background-color', 'border-radius', 'box-shadow']),
+      items, links: items.slice(0, 4), compact,
+      showInline: !compact, open: this.state.open, showSheet: compact && this.state.open,
+      toggleLabel: this.state.open ? 'Close menu' : 'Open menu',
+      toggle: () => this.setState(s => ({ open: !s.open })),
+      isDark: this.state.theme === 'dark', isLight: this.state.theme !== 'dark',
+      themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: () => { if (window.pfTheme) window.pfTheme.toggle(); },
+      close: () => this.setState({ open: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

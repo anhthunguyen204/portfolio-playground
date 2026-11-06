@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./theme.js"></script><link rel="stylesheet" href="assets/fonts/fonts.css"></helmet>
+<sc-if value="{{ isPrimary }}" hint-placeholder-val="{{ true }}">
+  <a href="{{ href }}" target="{{ target }}" onClick="{{ handleClick }}" style="display:inline-flex;align-items:center;gap:8px;min-height:{{ h }};padding:0 {{ px }};box-sizing:border-box;background:var(--pf-fg);color:var(--pf-bg);border:1px solid var(--pf-fg);border-radius:14px;font-family:var(--pf-sans);font-size:{{ fs }};font-weight:500;text-decoration:none;white-space:nowrap;transition:background-color 180ms cubic-bezier(.2,.7,.2,1),transform 140ms cubic-bezier(.2,.7,.2,1)" style-hover="background:var(--pf-fg-hover);color:var(--pf-bg);transform:translateY(-1px)" style-active="transform:scale(0.98);background:var(--pf-fg-hover)" style-focus="outline:2px solid var(--pf-focus);outline-offset:3px">{{ label }}<span aria-hidden="true">{{ arrowGlyph }}</span></a>
+</sc-if>
+<sc-if value="{{ isSecondary }}" hint-placeholder-val="{{ false }}">
+  <a href="{{ href }}" target="{{ target }}" onClick="{{ handleClick }}" style="display:inline-flex;align-items:center;gap:8px;min-height:{{ h }};padding:0 {{ px }};box-sizing:border-box;background:var(--pf-surface);color:var(--pf-fg);border:1px solid transparent;border-radius:14px;font-family:var(--pf-sans);font-size:{{ fs }};font-weight:500;text-decoration:none;white-space:nowrap;transition:border-color 180ms cubic-bezier(.2,.7,.2,1),background-color 180ms cubic-bezier(.2,.7,.2,1),transform 140ms cubic-bezier(.2,.7,.2,1)" style-hover="background:var(--pf-line);color:var(--pf-fg);transform:translateY(-1px)" style-active="transform:scale(0.98);background:var(--pf-line)" style-focus="outline:2px solid var(--pf-focus);outline-offset:3px">{{ label }}<span aria-hidden="true">{{ arrowGlyph }}</span></a>
+</sc-if>
+<sc-if value="{{ isText }}" hint-placeholder-val="{{ false }}">
+  <a href="{{ href }}" target="{{ target }}" onClick="{{ handleClick }}" style="display:inline-flex;align-items:center;gap:8px;min-height:{{ h }};color:var(--pf-fg);font-family:var(--pf-sans);font-size:{{ fs }};font-weight:500;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;text-decoration-color:var(--pf-line-strong);transition:color 160ms,text-decoration-color 160ms" style-hover="color:var(--pf-accent);text-decoration-color:var(--pf-accent)" style-focus="outline:2px solid var(--pf-focus);outline-offset:3px">{{ label }}<span aria-hidden="true">{{ arrowGlyph }}</span></a>
+</sc-if>
+<sc-if value="{{ isDisabled }}" hint-placeholder-val="{{ false }}">
+  <span aria-disabled="true" title="{{ disabledReason }}" style="display:inline-flex;align-items:center;gap:8px;min-height:{{ h }};padding:0 {{ px }};box-sizing:border-box;color:var(--pf-subtle);background:var(--pf-surface);border:1px solid transparent;border-radius:14px;font-family:var(--pf-sans);font-size:{{ fs }};font-weight:500;white-space:nowrap;cursor:not-allowed">{{ label }}</span>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:320,&quot;height&quot;:90},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;See selected work&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;href&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;primary&quot;,&quot;secondary&quot;,&quot;text&quot;],&quot;default&quot;:&quot;primary&quot;,&quot;tsType&quot;:&quot;'primary'|'secondary'|'text'&quot;},&quot;size&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;md&quot;,&quot;sm&quot;],&quot;default&quot;:&quot;md&quot;,&quot;tsType&quot;:&quot;'md'|'sm'&quot;},&quot;arrow&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;right&quot;,&quot;down&quot;,&quot;out&quot;],&quot;default&quot;:&quot;none&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;disabled&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;disabledReason&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Unavailable&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;external&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const v = this.props.variant || 'primary';
+    const dis = !!this.props.disabled;
+    const sm = this.props.size === 'sm';
+    const arrows = { right: '→', down: '↓', out: '↗', none: '' };
+    return {
+      isPrimary: !dis && v === 'primary', isSecondary: !dis && v === 'secondary', isText: !dis && v === 'text', isDisabled: dis,
+      arrowGlyph: arrows[this.props.arrow || 'none'] ?? '',
+      target: this.props.external ? '_blank' : '_self',
+      label: this.props.label ?? 'Button', href: this.props.href ?? '#',
+      disabledReason: this.props.disabledReason ?? 'Unavailable',
+      handleClick: (e) => { if (typeof this.props.onClick === 'function') this.props.onClick(e); },
+      h: sm ? '40px' : '48px', px: sm ? '18px' : '24px', fs: sm ? '14px' : '15px'
+    };
+  }
+}
+</script>
+</body>
+</html>

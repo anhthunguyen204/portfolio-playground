@@ -1,0 +1,4 @@
+Put these three photos in this folder before deploying (exact names):
+  01-station.jpg
+  02-stone-wall.jpg
+  03-desk.jpg

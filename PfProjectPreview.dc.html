@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./theme.js"></script><script src="./support-colors.js"></script><script src="./assets.js"></script><script src="./image-slot.js"></script><style>@keyframes pf-lm-a{0%,100%{transform:perspective(1100px) rotateY(-11deg) rotateX(5deg) translateY(0)}50%{transform:perspective(1100px) rotateY(-8.5deg) rotateX(4deg) translateY(-4px)}}
+@keyframes pf-lm-b{0%,100%{transform:perspective(1100px) rotateY(10deg) rotateX(5deg) translateY(0)}50%{transform:perspective(1100px) rotateY(12deg) rotateX(4deg) translateY(-3px)}}
+@keyframes pf-lm-drift{0%,100%{transform:translate(0,0)}50%{transform:translate(3px,-5px)}}
+@keyframes pf-lm-drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-2px,4px)}}
+@media (prefers-reduced-motion: reduce){[data-lm]{animation:none!important}}
+a[data-cursor="card"]:hover [data-lm],a[data-cursor="card"]:focus-visible [data-lm]{animation-play-state:paused}</style><link rel="stylesheet" href="assets/fonts/fonts.css"></helmet>
+<a href="{{ href }}" data-cursor="card" ref="{{ cardRef }}" onPointerEnter="{{ onEnter }}" onPointerMove="{{ onMove }}" onPointerLeave="{{ onLeave }}" onFocus="{{ onFocus }}" onBlur="{{ onBlur }}" style="position:relative;display:flex;flex-direction:{{ cardDir }};flex-wrap:{{ cardWrap }};align-items:{{ cardAlign }};gap:{{ cardGap }};height:100%;box-sizing:border-box;padding:12px 12px 20px;background:var(--pf-card);box-shadow:var(--pf-card-shadow);color:var(--pf-fg);text-decoration:none;border-radius:20px;transition:color 160ms cubic-bezier(.2,.7,.2,1),transform 220ms cubic-bezier(.22,1,.36,1),box-shadow 220ms cubic-bezier(.22,1,.36,1)" style-hover="color:var(--pf-accent);transform:translateY(-3px);box-shadow:var(--pf-card-shadow-hover)" style-focus="outline:2px solid var(--pf-focus);outline-offset:6px">
+  <div ref="{{ mediaRef }}" style="position:relative;width:100%;flex:{{ mediaFlex }};min-width:{{ mediaMin }};aspect-ratio:{{ mediaRatio }};border-radius:12px;overflow:hidden;background:var(--pf-line);box-sizing:border-box">
+    <sc-if value="{{ isLuminA }}" hint-placeholder-val="{{ false }}">
+      <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;background:radial-gradient(90% 80% at 88% 6%, var(--pf-accent-tint), transparent 62%), var(--pf-surface)">
+        <div data-lm="" style="position:absolute;left:9%;top:15%;width:68%;transform-origin:50% 60%;animation:pf-lm-a 9s ease-in-out infinite"><div style="background:#161616;padding:1.6%;border-radius:10px 10px 3px 3px;box-shadow:0 18px 36px -16px rgba(17,17,17,.35)"><img src="{{ lmDocs }}" alt="" width="1800" height="1046" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:1800/1046;border-radius:4px"></div><div style="position:relative;margin:0 -7%;height:7px;background:linear-gradient(#e3e3e3,#a9a9a9);border-radius:0 0 10px 10px"><span style="position:absolute;left:42%;right:42%;top:0;height:3px;background:#bdbdbd;border-radius:0 0 4px 4px"></span></div></div>
+        <div data-lm="" style="position:absolute;right:5%;bottom:10%;width:43%;background:#FFFFFF;border-radius:10px;padding:4px;box-shadow:0 10px 24px -10px rgba(17,17,17,.28),0 0 0 1px rgba(17,17,17,.05);animation:pf-lm-drift 7s ease-in-out -2s infinite"><div style="position:relative;width:100%;aspect-ratio:1.802;overflow:hidden;border-radius:6px"><img src="{{ lmDocs }}" alt="" width="1800" height="1046" decoding="async" style="position:absolute;display:block;max-width:none;width:225.73%;height:auto;left:-52.37%;top:-38.77%"></div></div>
+        <div data-lm="" style="position:absolute;left:5%;top:7%;width:9.5%;aspect-ratio:1;background:#FFFFFF;border-radius:10px;padding:4px;box-shadow:0 10px 24px -10px rgba(17,17,17,.28),0 0 0 1px rgba(17,17,17,.05);padding:0;display:flex;align-items:center;justify-content:center;animation:pf-lm-drift2 8s ease-in-out -4s infinite"><img src="{{ lmIcon }}" alt="" style="display:block;width:54%;height:auto"></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isLuminB }}" hint-placeholder-val="{{ false }}">
+      <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;background:radial-gradient(90% 80% at 10% 96%, var(--pf-accent-tint), transparent 60%), var(--pf-surface)">
+        <div data-lm="" style="position:absolute;right:6%;top:13%;width:66%;transform-origin:50% 60%;animation:pf-lm-b 10s ease-in-out infinite"><div style="background:#161616;padding:1.6%;border-radius:10px 10px 3px 3px;box-shadow:0 18px 36px -16px rgba(17,17,17,.35)"><img src="{{ lmHome }}" alt="" width="1800" height="1046" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:1800/1046;border-radius:4px"></div><div style="position:relative;margin:0 -7%;height:7px;background:linear-gradient(#e3e3e3,#a9a9a9);border-radius:0 0 10px 10px"><span style="position:absolute;left:42%;right:42%;top:0;height:3px;background:#bdbdbd;border-radius:0 0 4px 4px"></span></div></div>
+        <div data-lm="" style="position:absolute;left:8%;top:19%;width:6.5%;background:#FFFFFF;border-radius:10px;padding:4px;box-shadow:0 10px 24px -10px rgba(17,17,17,.28),0 0 0 1px rgba(17,17,17,.05);animation:pf-lm-drift2 8s ease-in-out -1s infinite"><div style="position:relative;width:100%;aspect-ratio:0.153;overflow:hidden;border-radius:6px"><img src="{{ lmHome }}" alt="" width="1800" height="1046" decoding="async" style="position:absolute;display:block;max-width:none;width:2066.12%;height:auto;left:0.00%;top:-46.34%"></div></div>
+        <div data-lm="" style="position:absolute;left:12%;bottom:9%;width:47%;background:#FFFFFF;border-radius:10px;padding:4px;box-shadow:0 10px 24px -10px rgba(17,17,17,.28),0 0 0 1px rgba(17,17,17,.05);animation:pf-lm-drift 7.5s ease-in-out -3.5s infinite"><div style="position:relative;width:100%;aspect-ratio:4.153;overflow:hidden;border-radius:6px"><img src="{{ lmHome }}" alt="" width="1800" height="1046" decoding="async" style="position:absolute;display:block;max-width:none;width:255.75%;height:auto;left:-32.99%;top:-177.16%"></div></div>
+        <div style="position:absolute;left:5%;top:6%;display:flex;align-items:center;padding:5px 10px;border-radius:999px;background:#FFFFFF;box-shadow:0 4px 12px -6px rgba(17,17,17,.25)"><img src="{{ lmLogo }}" alt="" style="display:block;height:11px;width:auto"></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ hasCover }}" hint-placeholder-val="{{ false }}"><img src="{{ coverSrc }}" alt="{{ project.cover }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ coverFit }};background-color:{{ coverBg }};display:block"></sc-if>
+    <sc-if value="{{ noCover }}" hint-placeholder-val="{{ false }}"><image-slot id="{{ coverId }}" shape="rect" placeholder="{{ project.cover }}" style="position:absolute;inset:0;width:100%;height:100%"></image-slot></sc-if>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;padding:{{ textPad }};flex:{{ textFlex }};min-width:{{ sideMin }};box-sizing:border-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--pf-mono);font-size:12px;color:var(--pf-muted)">
+      <span style="display:flex;align-items:center;gap:10px;min-width:0"><span style="font-weight:500;color:var(--pf-accent)">{{ n }}</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ project.domain }}</span></span>
+      <span style="flex:none">{{ project.year }}</span>
+    </div>
+    <h3 style="margin:0;font-family:var(--pf-sans);font-weight:600;font-size:clamp(20px,1.7vw,24px);line-height:1.25;letter-spacing:-0.02em;color:inherit;text-wrap:balance">{{ project.title }}</h3>
+    <p style="margin:0;font-family:var(--pf-sans);font-size:15px;line-height:1.6;color:var(--pf-muted);text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:{{ sumClamp }};-webkit-box-orient:vertical;overflow:hidden">{{ project.summary }}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;padding-top:6px">
+      <sc-for list="{{ chips }}" as="tag" hint-placeholder-count="3"><span style="font-family:var(--pf-sans);font-size:12px;font-weight:500;color:var(--pf-chip-{{ tag.c }}-fg);background-color:var(--pf-chip-{{ tag.c }}-bg);border-radius:999px;padding:4px 10px">{{ tag.label }}</span></sc-for>
+    </div>
+  </div>
+  <span aria-hidden="true" style="position:absolute;left:0;top:0;z-index:2;pointer-events:none;transform:{{ tipPos }}">
+    <span ref="{{ tipRef }}" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:12px;background:var(--pf-fg);color:var(--pf-bg);font-family:var(--pf-sans);font-size:13px;font-weight:500;line-height:1;white-space:nowrap;opacity:{{ tipOpacity }};transform:{{ tipLift }};transition:{{ tipTransition }}">View case study ↗</span>
+  </span>
+</a>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:560,&quot;height&quot;:620},&quot;project&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;},&quot;n&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;01&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  cardRef = React.createRef();
+  mediaRef = React.createRef();
+  tipRef = React.createRef();
+  state = { show: false, x: 0, y: 0 };
+  componentDidMount() {
+    if (window.pfAssetReady && !window.pfAssetReady()) requestAnimationFrame(() => this.forceUpdate());
+    // Chip colors come from support-colors.js; if it hasn't run yet, re-render once it has.
+    if (!window.PF_SUPPORT) {
+      let tries = 0;
+      const wait = () => { if (window.PF_SUPPORT) this.forceUpdate(); else if (++tries < 100) this._chipT = setTimeout(wait, 50); };
+      this._chipT = setTimeout(wait, 0);
+    }
+  }
+  componentWillUnmount() {
+    clearTimeout(this._chipT);
+  }
+
+  reduced() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  // Follow the cursor (offset down-right), clamped inside the card
+  place(clientX, clientY) {
+    const card = this.cardRef.current, tip = this.tipRef.current;
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    const tw = tip ? tip.offsetWidth : 140, th = tip ? tip.offsetHeight : 32, m = 8;
+    let x = clientX - r.left + 14, y = clientY - r.top + 18;
+    if (x + tw > r.width - m) x = clientX - r.left - tw - 14;
+    if (y + th > r.height - m) y = clientY - r.top - th - 14;
+    x = Math.max(m, Math.min(x, r.width - tw - m));
+    y = Math.max(m, Math.min(y, r.height - th - m));
+    this.setState({ show: true, x, y });
+  }
+  renderVals() {
+    const p = this.props.project || { id: 'demo', title: 'Project title', domain: 'Domain', year: '2025', summary: 'One or two sentences on the problem and what changed.', tags: ['Tag'], cover: 'Project cover' };
+    const { show, x, y } = this.state;
+    const reduce = this.reduced();
+    // layout="row" (1-column grid): 4:3 thumbnail left / content right, an exact 50:50 split (equal border-box
+    // bases of half the row minus half the gap, so the text padding sits inside its half), vertically centred. Stays horizontal while each half is
+    // ≥ 300px (card ≳ 640px wide); below that it wraps to a stack with the thumbnail on top.
+    // Default: the stacked card used by 2/3 columns.
+    const row = this.props.layout === 'row';
+    return {
+      // Summaries clamp at 3 lines, except projects flagged fullSummary (shown in full in every layout).
+      sumClamp: p.fullSummary ? 'unset' : '3',
+      // Lumin thumbnail images resolve through pfAsset so exported builds use the packaged copies (registered in
+      // Portfolio.dc.html's data-pf-assets list); a literal relative path does not exist on the deployed site.
+      ...(() => { const A = (x) => (window.pfAsset ? window.pfAsset(x) : x); return { lmDocs: A('assets/projects/lumin/documents.jpg'), lmIcon: A('assets/projects/lumin/lumin-icon.png'), lmHome: A('assets/projects/lumin/home.jpg'), lmLogo: A('assets/projects/lumin/lumin-logo.svg') }; })(),
+      cardDir: row ? 'row' : 'column', cardWrap: row ? 'wrap' : 'nowrap', cardAlign: row ? 'center' : 'stretch', cardGap: row ? '20px clamp(24px,4vw,56px)' : '20px',
+      mediaFlex: row ? '1 1 calc(50% - clamp(24px,4vw,56px) / 2)' : '0 0 auto', textFlex: row ? '1 1 calc(50% - clamp(24px,4vw,56px) / 2)' : '0 1 auto', mediaMin: row ? 'min(100%,300px)' : '0', mediaRatio: row ? '4/3' : '16/10', sideMin: row ? 'min(100%,300px)' : '0', textPad: row ? '0 clamp(8px,2vw,24px) 0 8px' : '0 8px',
+      project: p, chips: (p.tags || []).map(label => ({ label, c: window.PF_SUPPORT ? window.PF_SUPPORT.chipColor(label) : 'blue' })), href: '#/work/' + p.id, coverId: 'cover-' + p.id, coverSrc: window.pfAsset ? window.pfAsset((window.PF_ASSETS || {})['cover-' + p.id]) : ((window.PF_ASSETS || {})['cover-' + p.id] || ''), coverFit: p.coverFit || 'cover', coverBg: p.coverBg || 'transparent', hasCover: !p.thumb && !p.mockup && !!(window.PF_ASSETS || {})['cover-' + p.id], noCover: !p.thumb && !(window.PF_ASSETS || {})['cover-' + p.id], isLuminA: p.thumb === 'lumin-agreement', isLuminB: p.thumb === 'lumin-experience', n: this.props.n ?? '01',
+      cardRef: this.cardRef, mediaRef: this.mediaRef, tipRef: this.tipRef,
+      onEnter: (e) => { if (e.pointerType === 'mouse') this.place(e.clientX, e.clientY); },
+      onMove: (e) => { if (e.pointerType === 'mouse') this.place(e.clientX, e.clientY); },
+      onLeave: (e) => { if (e.pointerType === 'mouse') this.setState({ show: false }); },
+      // Keyboard focus: pin the chip to the cover's top-left corner
+      onFocus: (e) => {
+        const el = e.currentTarget;
+        if (!(el.matches && el.matches(':focus-visible'))) return;
+        this.setState({ show: true, x: 16, y: 16 });
+      },
+      onBlur: () => this.setState({ show: false }),
+      tipPos: 'translate3d(' + Math.round(x) + 'px,' + Math.round(y) + 'px,0)',
+      tipOpacity: show ? 1 : 0,
+      tipLift: show || reduce ? 'translateY(0)' : 'translateY(4px)',
+      tipTransition: reduce ? 'none' : 'opacity 160ms cubic-bezier(.2,.7,.2,1), transform 200ms cubic-bezier(.2,.7,.2,1)'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./theme.js"></script><script src="./assets.js"></script><script src="./image-slot.js"></script><link rel="stylesheet" href="assets/fonts/fonts.css"></helmet>
+<figure style="margin:0;display:flex;flex-direction:column;gap:12px;width:100%">
+  <div ref="{{ frameRef }}" style="position:relative;width:100%;aspect-ratio:{{ ratio }};border-radius:12px;overflow:hidden">
+    <sc-if value="{{ hasAsset }}" hint-placeholder-val="{{ false }}"><img src="{{ assetSrc }}" alt="{{ alt }}" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></sc-if>
+    <sc-if value="{{ noAsset }}" hint-placeholder-val="{{ false }}"><image-slot id="{{ slotId }}" shape="rect" fit="contain" placeholder="{{ label }}" style="position: absolute; inset: 0; width: 100%; height: 100%; background: var(--pf-surface)"></image-slot></sc-if>
+  </div>
+  <sc-if value="{{ hasCaption }}" hint-placeholder-val="{{ false }}">
+    <figcaption style="display:flex;gap:10px;padding:0 2px;font-family:var(--pf-sans);font-size:14px;line-height:1.5;color:var(--pf-muted);max-width:70ch;text-wrap:pretty">
+      <span style="flex:none;width:6px;height:6px;border-radius:50%;background:var(--pf-accent);margin-top:8px"></span>
+      <span>{{ caption }}</span>
+    </figcaption>
+  </sc-if>
+</figure>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:720,&quot;height&quot;:480},&quot;slotId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;pf-figure-demo&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Screenshot&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;caption&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;ratio&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;16/9&quot;,&quot;16/10&quot;,&quot;4/3&quot;,&quot;4/5&quot;,&quot;9/16&quot;,&quot;21/9&quot;],&quot;default&quot;:&quot;16/9&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+// `ratio` is only the empty-placeholder shape. Once an image fills the slot, the frame adopts the image's
+// natural aspect ratio (width 100%, height follows), and fit is contain, so nothing is ever cropped.
+// Zones listed in assets.js render the permanent file directly at natural height (no upload control).
+// Re-measures on every load, so replacing an image re-sizes the frame automatically.
+class Component extends DCLogic {
+  state = { nat: null };
+  componentDidMount() { if (window.pfAssetReady && !window.pfAssetReady()) requestAnimationFrame(() => this.forceUpdate()); }
+  frameRef = (el) => {
+    if (this._mo) { this._mo.disconnect(); this._mo = null; }
+    if (this._img && this._onLoad) this._img.removeEventListener('load', this._onLoad);
+    this._frame = el;
+    if (!el) return;
+    const bind = () => {
+      const slot = el.querySelector('image-slot');
+      if (!slot || !slot._img) return false;
+      this._slot = slot; this._img = slot._img;
+      this._onLoad = () => this.measure();
+      this._img.addEventListener('load', this._onLoad);
+      this._mo = new MutationObserver(() => this.measure());
+      this._mo.observe(slot, { attributes: true, attributeFilter: ['data-filled', 'src'] });
+      this.measure();
+      return true;
+    };
+    if (!bind()) customElements.whenDefined('image-slot').then(() => requestAnimationFrame(() => { if (this._frame === el && !this._img) bind(); }));
+  };
+  measure() {
+    const s = this._slot, img = this._img;
+    const filled = s && s.hasAttribute('data-filled') && img && img.naturalWidth > 0 && img.naturalHeight > 0;
+    const nat = filled ? img.naturalWidth + '/' + img.naturalHeight : null;
+    if (nat !== this.state.nat) this.setState({ nat });
+  }
+  componentWillUnmount() { this.frameRef(null); }
+  renderVals() {
+    const id = this.props.slotId || 'pf-figure-demo';
+    const assetPath = (window.PF_ASSETS || {})[id] || '';
+    const assetSrc = assetPath && window.pfAsset ? window.pfAsset(assetPath) : assetPath;
+    return {
+      hasAsset: !!assetSrc, noAsset: !assetSrc, assetSrc, alt: this.props.caption || this.props.label || '',
+      ratio: assetSrc ? 'auto' : (this.state.nat || this.props.ratio || '16/9'), frameRef: this.frameRef,
+      slotId: this.props.slotId || 'pf-figure-demo', label: this.props.label || 'Screenshot',
+      caption: this.props.caption || '', hasCaption: !!this.props.caption
+    };
+  }
+}
+</script>
+</body>
+</html>
